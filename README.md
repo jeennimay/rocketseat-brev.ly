@@ -13,7 +13,7 @@ The main goal is to build a URL shortener app from scratch, covering frontend, b
 
 ## Technologies Used
 
-- React.js / Next.js (Frontend)
+- React.js / Vite / Tailwind (Frontend)
 - Node.js / Express (Backend)
 - Docker, CI/CD tools (DevOps)
 - AWS (optional cloud deployment)
@@ -23,8 +23,8 @@ The main goal is to build a URL shortener app from scratch, covering frontend, b
 1. Clone this repository
 2. Install dependencies in both frontend and backend
 3. Start development servers
-   - Frontend: `npm run dev` in `/frontend`
-   - Backend: `npm run dev` in `/backend`
+   - Frontend: `npm run dev` in `/web`
+   - Backend: `npm run dev` in `/server`
 4. Access the app via local URL
 
 ## About
