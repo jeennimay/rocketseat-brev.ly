@@ -1,14 +1,14 @@
-import React from 'react';
+import type { ReactNode, FC, ButtonHTMLAttributes } from 'react';
 import { concatClassNames } from '@utils/concat-classname';
 
 export type ButtonProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   variant?: 'primary' | 'secondary';
   block?: boolean;
   isOnlyIcon?: boolean;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   children,
   variant = 'primary',
   block = false,

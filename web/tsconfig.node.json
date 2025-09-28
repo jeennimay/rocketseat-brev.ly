@@ -25,7 +25,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@ds/*": ["./src/ds/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@pages/*": ["./src/presentation/pages/*"]
     }
   },
   "include": ["vite.config.ts"]

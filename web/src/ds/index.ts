@@ -4,8 +4,11 @@ export { default as AssetsImg } from './quarks/img';
 
 /* Atoms - type */
 export type { ButtonProps } from './atoms/button';
-export type { InputProps } from './atoms/input';
-
 /* Atoms */
 export { default as Button } from './atoms/button';
-export { default as Input } from './atoms/input';
+export { default as Loading } from './atoms/loading';
+
+/* Molecules - type */
+export type { InputProps } from './molecules/input';
+/* Molecules */
+export { default as Input } from './molecules/input';
