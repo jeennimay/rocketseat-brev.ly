@@ -1,6 +1,6 @@
 import { AssetsImg } from '@/ds';
 import type { FC } from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 
 const NotFound: FC = () => {
   return (
@@ -20,9 +20,9 @@ const NotFound: FC = () => {
           O link que você está tentando acessar não existe, foi removido ou é
           uma URL inválida. Saiba mais em&nbsp;
           <span>
-            <Link to="/" className="text-blue-base">
+            <NavLink to="/" className="text-blue-base">
               brev.ly
-            </Link>
+            </NavLink>
           </span>
           .
         </p>
