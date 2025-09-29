@@ -11,8 +11,8 @@ export function BrevlyRoutes() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
         <Route path="/:urlRedirect" element={<Redirect />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
