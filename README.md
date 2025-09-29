@@ -1,4 +1,4 @@
-# brev.ly — RocketSeat Postgraduate Challenge
+# brev.ly — Rocketseat Postgraduate Challenge
 
 This project was created for RocketSeat's Postgraduate Program as a way to solidify my learning.  
 The main goal is to build a URL shortener app from scratch, covering frontend, backend, and DevOps—all in one place!
@@ -34,4 +34,4 @@ Feel free to open issues, contribute, or get in touch for feedback!
 
 ---
 
-RocketSeat | Pós-graduação | 2025
+[Rocketseat | Pós-graduação | 2025](https://www.rocketseat.com.br/faculdade/tech-developer-360)
