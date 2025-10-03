@@ -49,7 +49,53 @@ const Home = (): ReactNode => {
             </Button>
           </div>
           <div className="mb-4 mt-5 w-full h-px bg-gray-200" />
-          <LinkList links={[]} isLoading={false} />
+          <LinkList
+            links={[
+              {
+                id: '1',
+                originalUrl: 'https://www.example.com/page1',
+                shortUrl: 'abc123',
+                createdAt: '2025-09-28T12:00:00Z',
+                accessCount: 102,
+              },
+              {
+                id: '2',
+                originalUrl: 'https://www.example.com/page2',
+                shortUrl: 'def456',
+                createdAt: '2025-09-29T12:00:00Z',
+                accessCount: 74,
+              },
+              {
+                id: '3',
+                originalUrl: 'https://www.dev.to/articles/react-lazy-loading',
+                shortUrl: 'react1',
+                createdAt: '2025-09-28T19:05:00Z',
+                accessCount: 145,
+              },
+              {
+                id: '4',
+                originalUrl: 'https://pt.wikipedia.org/wiki/Tailwind_CSS',
+                shortUrl: 'tail2025',
+                createdAt: '2025-09-27T21:38:00Z',
+                accessCount: 82,
+              },
+              {
+                id: '5',
+                originalUrl: 'https://github.com/typescript-cheatsheets/react',
+                shortUrl: 'gh-ts',
+                createdAt: '2025-09-26T17:54:00Z',
+                accessCount: 230,
+              },
+              {
+                id: '6',
+                originalUrl: 'https://news.ycombinator.com/item?id=2025',
+                shortUrl: 'hn2025',
+                createdAt: '2025-09-25T11:20:00Z',
+                accessCount: 91,
+              },
+            ]}
+            isLoading={false}
+          />
         </section>
       </div>
     </div>
