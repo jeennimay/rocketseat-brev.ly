@@ -1,0 +1,85 @@
+{
+  "id": "2276cd09-db2a-4748-8b8f-0154b137dd29",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.links": {
+      "name": "links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "short_link": {
+          "name": "short_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "count_visits": {
+          "name": "count_visits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "remote_key": {
+          "name": "remote_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "links_short_link_unique": {
+          "name": "links_short_link_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "short_link"
+          ]
+        },
+        "links_remote_key_unique": {
+          "name": "links_remote_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "remote_key"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

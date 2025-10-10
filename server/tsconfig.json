@@ -12,6 +12,11 @@
     ],
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "paths": {
+      "@/*": ["./src/*"],
+      "@model": ["./src/data/model/*"]
+    }
   }
 }
