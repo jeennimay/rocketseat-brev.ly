@@ -6,14 +6,15 @@ import { useLinksData } from '@/store/links';
 const Redirect: FC = () => {
   const navigate = useNavigate();
   const { urlRedirect } = useParams();
-  const { links } = useLinksData()
-  const originalUrl = links.find((link) => link.shortLink === urlRedirect)?.url || '/url/not-found';
+  const { links } = useLinksData();
+  const originalUrl =
+    links.find(link => link.shortLink === urlRedirect)?.url || '/url/not-found';
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const isValid = /^[a-zA-Z0-9_]+$/.test(urlRedirect || '');
-    const existLink = links.find((link) => link.shortLink === urlRedirect);
+    const existLink = links.find(link => link.shortLink === urlRedirect);
 
     if (!isValid || !existLink) {
       navigate('/url/not-found', { replace: true });

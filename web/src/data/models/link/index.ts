@@ -18,5 +18,5 @@ export type NewLink = {
 };
 
 export type LinkReport = {
-  reportUrl: string
-}
+  reportUrl: string;
+};

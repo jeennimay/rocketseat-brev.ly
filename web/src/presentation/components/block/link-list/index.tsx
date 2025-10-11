@@ -6,11 +6,16 @@ import { Button, CopyIcon, LinkIcon, TrashIcon } from '@ds/index';
 export type LinkListProps = {
   links?: LinksType;
   isLoading?: boolean;
-  copyLink?: (shortLink: string) => void
-  deleteLink?: (shortLink: string) => void
+  copyLink?: (shortLink: string) => void;
+  deleteLink?: (shortLink: string) => void;
 };
 
-const LinkList: FC<LinkListProps> = ({ links, isLoading, copyLink, deleteLink }) => {
+const LinkList: FC<LinkListProps> = ({
+  links,
+  isLoading,
+  copyLink,
+  deleteLink,
+}) => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 pb-6 pt-4">
@@ -51,10 +56,18 @@ const LinkList: FC<LinkListProps> = ({ links, isLoading, copyLink, deleteLink })
               {`${link.countVisits} acesso${link.countVisits > 1 ? 's' : ''}`}
             </span>
             <div className="flex flex-nowrap shrink-0 gap-1">
-              <Button variant="secondary" isOnlyIcon onClick={() => copyLink?.(link.shortLink)}>
+              <Button
+                variant="secondary"
+                isOnlyIcon
+                onClick={() => copyLink?.(link.shortLink)}
+              >
                 <CopyIcon size={16} color="gray-600" />
               </Button>
-              <Button variant="secondary" isOnlyIcon onClick={() => deleteLink?.(link.shortLink)}>
+              <Button
+                variant="secondary"
+                isOnlyIcon
+                onClick={() => deleteLink?.(link.shortLink)}
+              >
                 <TrashIcon size={16} color="gray-600" />
               </Button>
             </div>

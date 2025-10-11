@@ -4,10 +4,10 @@ import { LinkList } from '@/presentation/components';
 import type { HomeUseCaseProps } from '@/domain/usecases/home';
 
 type HomeProps = {
-  useCase: HomeUseCaseProps
-}
+  useCase: HomeUseCaseProps;
+};
 const Home = (props: HomeProps): ReactNode => {
-  const { links, copyLink } = props.useCase;
+  const { links, copyLink, deleteLink } = props.useCase;
 
   return (
     <div className="bg-gray-200 min-h-dvh w-dvw px-3 py-8 box-border">
@@ -59,6 +59,7 @@ const Home = (props: HomeProps): ReactNode => {
             links={links}
             isLoading={false}
             copyLink={copyLink}
+            deleteLink={deleteLink}
           />
         </section>
       </div>

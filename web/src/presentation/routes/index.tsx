@@ -7,13 +7,16 @@ const NotFound = lazy(() => import('@factories/not-found'));
 const Redirect = lazy(() => import('@factories/redirect'));
 
 export function BrevlyRoutes() {
-  return useMemo(() => (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:urlRedirect" element={<Redirect />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
-  ), []);
+  return useMemo(
+    () => (
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:urlRedirect" element={<Redirect />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    ),
+    []
+  );
 }
