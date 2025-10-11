@@ -16,7 +16,7 @@
 
     "paths": {
       "@/*": ["./src/*"],
-      "@model": ["./src/data/model/*"]
+      "@functions/*": ["./src/app/functions/*"]
     }
   }
 }

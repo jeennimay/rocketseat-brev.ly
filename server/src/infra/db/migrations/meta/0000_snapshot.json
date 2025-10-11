@@ -1,5 +1,5 @@
 {
-  "id": "2276cd09-db2a-4748-8b8f-0154b137dd29",
+  "id": "b08054e7-c81f-41b1-a6dd-10730038c332",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -39,12 +39,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
-        },
-        "remote_key": {
-          "name": "remote_key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {},
@@ -56,13 +50,6 @@
           "nullsNotDistinct": false,
           "columns": [
             "short_link"
-          ]
-        },
-        "links_remote_key_unique": {
-          "name": "links_remote_key_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "remote_key"
           ]
         }
       },

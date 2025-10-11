@@ -1,5 +1,5 @@
-import { db } from "@/infra/db";
-import { schema } from "@/infra/db/schemas";
+import { createShortLinkFn } from "@/app/functions/create-short-link";
+import { LinksResponseObj, LinksRequestObj } from "@/shared/links";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod";
 
@@ -8,40 +8,22 @@ export const createShortLink: FastifyPluginAsyncZod = async (server) => {
         schema: {
             summary: 'Create a short link',
             tags: ['link'],
-            body: z.object({
-                url: z.url().regex(/^[a-zA-Z0-9_-]{3,}$/),
-                shortLink: z.string().regex(/^[a-zA-Z0-9_-]{3,}$/),
-
-            }),
+            body: LinksRequestObj,
             response: {
-                201: z.object({
-                    id: z.uuid(),
-                    url: z.url(),
-                    shortLink: z.string(),
-                    createdAt: z.date(),
-                }),
+                201: LinksResponseObj,
                 400: z.object({ message: z.string() }).describe('Bad Request'),
             }
         }
     }, async (request, reply) => {
+        const { url, shortLink } = LinksRequestObj.parse(request.body)
 
-        await db.insert(schema.links).values({
-            url: request.body.url,
-            shortLink: request.body.shortLink,
-            remoteKey: 'remoteKey_example',
-        });
-        if (request.body.shortLink === 'abc') {
-            return reply.status(400).send({ message: 'Short link already in use.' })
+        const result = await createShortLinkFn({ url, shortLink })
+
+        if (result.left) {
+            return reply.status(400).send({ message: result.left })
         }
 
-
-        return reply.status(201).send({
-            id: '123e4567-e89b-12d3-a456-426614174000',
-            url: request.body.url,
-            shortLink: request.body.shortLink,
-            createdAt: new Date(),
-        })
-
+        return reply.status(201).send(result.right)
     })
 
 }
