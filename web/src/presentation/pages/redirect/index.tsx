@@ -1,34 +1,16 @@
-import { useEffect, useState, type FC } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router';
+import { type FC } from 'react';
+import { NavLink } from 'react-router';
 import { AssetsImg, Loading } from '@ds/index';
-import { useLinksData } from '@/store/links';
+import type { RedirectUseCaseProps } from '@/domain/usecases/redirect';
 
-const Redirect: FC = () => {
-  const navigate = useNavigate();
-  const { urlRedirect } = useParams();
-  const { links } = useLinksData();
-  const originalUrl =
-    links.find(link => link.shortLink === urlRedirect)?.url || '/url/not-found';
+type RedirectProps = {
+  useCase: RedirectUseCaseProps;
+};
 
-  const [isLoading, setIsLoading] = useState(true);
+const Redirect: FC<RedirectProps> = ({ useCase }) => {
+  const { link, isLoading } = useCase;
 
-  useEffect(() => {
-    const isValid = /^[a-zA-Z0-9_]+$/.test(urlRedirect || '');
-    const existLink = links.find(link => link.shortLink === urlRedirect);
-
-    if (!isValid || !existLink) {
-      navigate('/url/not-found', { replace: true });
-      return;
-    }
-
-    setIsLoading(false);
-
-    const timer = setTimeout(() => {
-      window.location.href = existLink.url;
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [links, navigate, urlRedirect]);
+  const { originalUrl } = link;
 
   if (isLoading) {
     return <Loading />;
