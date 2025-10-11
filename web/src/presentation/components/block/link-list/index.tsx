@@ -1,16 +1,16 @@
 import { Fragment, type FC } from 'react';
-import Link from '@/ds/quarks/icons/link';
-import type { LinkList as LinksType } from '@/data/models/link';
 import { NavLink } from 'react-router';
-import { Button, CopyIcon } from '@/ds';
-import Trash from '@/ds/quarks/icons/trash';
+import type { LinkList as LinksType } from '@/data/models/link';
+import { Button, CopyIcon, LinkIcon, TrashIcon } from '@ds/index';
 
 export type LinkListProps = {
   links?: LinksType;
   isLoading?: boolean;
+  copyLink?: (shortLink: string) => void
+  deleteLink?: (shortLink: string) => void
 };
 
-const LinkList: FC<LinkListProps> = ({ links, isLoading }) => {
+const LinkList: FC<LinkListProps> = ({ links, isLoading, copyLink, deleteLink }) => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 pb-6 pt-4">
@@ -23,7 +23,7 @@ const LinkList: FC<LinkListProps> = ({ links, isLoading }) => {
   if (!links?.length) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 pb-6 pt-4">
-        <Link size={32} color="gray-400" />
+        <LinkIcon size={32} color="gray-400" />
         <p className="text-gray-500 text-xs leading-xs uppercase">
           ainda não existem links cadastrados
         </p>
@@ -40,23 +40,22 @@ const LinkList: FC<LinkListProps> = ({ links, isLoading }) => {
           >
             <div className="w-full">
               <NavLink
-                to={link.shortUrl}
-                state={{ link: link }}
+                to={link.shortLink}
                 className="text-blue-base text-md leading-md font-semibold text-ellipsis overflow-hidden whitespace-nowrap"
-              >{`brev.ly/${link.shortUrl}`}</NavLink>
+              >{`brev.ly/${link.shortLink}`}</NavLink>
               <p className="text-gray-500 text-sm leading-sm mt-1 text-ellipsis overflow-hidden whitespace-nowrap">
-                {link.originalUrl}
+                {link.url}
               </p>
             </div>
             <span className="text-gray-500 text-sm leading-sm whitespace-nowrap">
-              {`${link.accessCount} acesso${link.accessCount > 1 && 's'}`}
+              {`${link.countVisits} acesso${link.countVisits > 1 ? 's' : ''}`}
             </span>
             <div className="flex flex-nowrap shrink-0 gap-1">
-              <Button variant="secondary" isOnlyIcon>
+              <Button variant="secondary" isOnlyIcon onClick={() => copyLink?.(link.shortLink)}>
                 <CopyIcon size={16} color="gray-600" />
               </Button>
-              <Button variant="secondary" isOnlyIcon>
-                <Trash size={16} color="gray-600" />
+              <Button variant="secondary" isOnlyIcon onClick={() => deleteLink?.(link.shortLink)}>
+                <TrashIcon size={16} color="gray-600" />
               </Button>
             </div>
           </li>

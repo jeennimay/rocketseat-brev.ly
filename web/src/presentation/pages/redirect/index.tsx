@@ -1,32 +1,33 @@
-import { AssetsImg, Loading } from '@/ds';
 import { useEffect, useState, type FC } from 'react';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router';
+import { NavLink, useNavigate, useParams } from 'react-router';
+import { AssetsImg, Loading } from '@ds/index';
+import { useLinksData } from '@/store/links';
 
 const Redirect: FC = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const { urlRedirect } = useParams();
-
-  const [link] = useState(state?.link || null);
+  const { links } = useLinksData()
+  const originalUrl = links.find((link) => link.shortLink === urlRedirect)?.url || '/url/not-found';
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const isValid = /^[a-zA-Z0-9]+$/.test(urlRedirect || '');
+    const isValid = /^[a-zA-Z0-9_]+$/.test(urlRedirect || '');
+    const existLink = links.find((link) => link.shortLink === urlRedirect);
 
-    if (!link || link.shortUrl !== urlRedirect || !isValid) {
-      navigate('/url/not-found');
+    if (!isValid || !existLink) {
+      navigate('/url/not-found', { replace: true });
       return;
     }
 
     setIsLoading(false);
 
     const timer = setTimeout(() => {
-      window.location.href = link.originalUrl;
-    }, 5000);
+      window.location.href = existLink.url;
+    }, 3000);
 
     return () => clearTimeout(timer);
-  }, [link, navigate, urlRedirect]);
+  }, [links, navigate, urlRedirect]);
 
   if (isLoading) {
     return <Loading />;
@@ -35,7 +36,7 @@ const Redirect: FC = () => {
   return (
     <div className="bg-gray-200 h-dvh w-dvw flex items-center justify-center p-3">
       <div className="bg-gray-100 md:px-12 md:py-16 md:max-w-[580px] max-w-[366px] w-full px-5 py-12 flex flex-col items-center justify-center gap-6 rounded-lg">
-        <figure className="m-0 p-0 box-border w-12">
+        <figure className="m-0 p-0 box-border w-12 animate-pulse">
           <img
             src={AssetsImg.LogoIcon}
             alt="brev.ly logo"
@@ -52,7 +53,7 @@ const Redirect: FC = () => {
           <p className="text-md leading-md font-semibold text-gray-500 text-center">
             Não foi redirecionado?&nbsp;
             <span>
-              <NavLink to={link?.originalUrl} className="text-blue-base">
+              <NavLink to={originalUrl} className="text-blue-base">
                 Acesse aqui
               </NavLink>
             </span>

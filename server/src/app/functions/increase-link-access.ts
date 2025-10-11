@@ -1,21 +1,21 @@
-import { type Either, isLeft, makeLeft, makeRight } from '@/shared/either'
-import { getOneLink } from './get-one-link'
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
-import { eq } from 'drizzle-orm'
-import type { LinkResponse } from '@/shared/links.model'
+import { type Either, isLeft, makeLeft, makeRight } from "@/shared/either";
+import { getOneLink } from "./get-one-link";
+import { db } from "@/infra/db";
+import { schema } from "@/infra/db/schemas";
+import { eq } from "drizzle-orm";
+import type { LinkResponse } from "@/shared/links.model";
 
 type IncreaseLinkAccessInput = {
-  shortLink: string
-}
+  shortLink: string;
+};
 
 export const increaseLinkAccessFn = async ({
   shortLink,
 }: IncreaseLinkAccessInput): Promise<Either<string, LinkResponse>> => {
-  const linkCheck = await getOneLink(shortLink)
+  const linkCheck = await getOneLink(shortLink);
 
   if (isLeft(linkCheck)) {
-    return makeLeft('Link not found')
+    return makeLeft("Link not found");
   }
 
   const links = await db
@@ -28,9 +28,9 @@ export const increaseLinkAccessFn = async ({
       shortLink: schema.links.shortLink,
       countVisits: schema.links.countVisits,
       createdAt: schema.links.createdAt,
-    })
+    });
 
-  const [link] = links
+  const [link] = links;
 
-  return makeRight(link)
-}
+  return makeRight(link);
+};

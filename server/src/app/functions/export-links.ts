@@ -1,14 +1,14 @@
-import { db, pg } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
-import { makeRight, type Either } from '@/shared/either'
-import { LinksReport } from '@/shared/links.model'
-import { uploadFileToStorage } from '@/infra/storage/upload-file-to-storage'
-import { stringify } from 'csv-stringify'
-import { PassThrough, Transform } from 'node:stream'
-import { pipeline } from 'node:stream/promises'
+import { db, pg } from "@/infra/db";
+import { schema } from "@/infra/db/schemas";
+import { makeRight, type Either } from "@/shared/either";
+import { LinksReport } from "@/shared/links.model";
+import { uploadFileToStorage } from "@/infra/storage/upload-file-to-storage";
+import { stringify } from "csv-stringify";
+import { PassThrough, Transform } from "node:stream";
+import { pipeline } from "node:stream/promises";
 
 export const exportLinksFn = async (
-  origin: string
+  origin: string,
 ): Promise<Either<never, LinksReport>> => {
   const { sql, params } = db
     .select({
@@ -19,23 +19,23 @@ export const exportLinksFn = async (
       createdAt: schema.links.createdAt,
     })
     .from(schema.links)
-    .toSQL()
+    .toSQL();
 
-  const cursor = pg.unsafe(sql, params as string[]).cursor(50)
+  const cursor = pg.unsafe(sql, params as string[]).cursor(50);
 
   const csv = stringify({
-    delimiter: ',',
+    delimiter: ",",
     header: true,
     columns: [
-      { key: 'id', header: 'ID' },
-      { key: 'url', header: 'Original URL' },
-      { key: 'short_link', header: 'Short URL' },
-      { key: 'count_visits', header: 'Access Count' },
-      { key: 'created_at', header: 'Created At' },
+      { key: "id", header: "ID" },
+      { key: "url", header: "Original URL" },
+      { key: "short_link", header: "Short URL" },
+      { key: "count_visits", header: "Access Count" },
+      { key: "created_at", header: "Created At" },
     ],
-  })
+  });
 
-  const uploadToStorageStream = new PassThrough()
+  const uploadToStorageStream = new PassThrough();
 
   const rowTransformer = new Transform({
     objectMode: true,
@@ -43,29 +43,29 @@ export const exportLinksFn = async (
       for (const chunk of chunks as Record<string, unknown>[]) {
         const transformedChunk = {
           ...chunk,
-          shortLink: `${origin}/${chunk.shortLink}`,
-        }
-        this.push(transformedChunk)
+          short_link: `${origin}/${chunk.short_link}`,
+        };
+        this.push(transformedChunk);
       }
-      callback()
+      callback();
     },
-  })
+  });
 
   const convertToCSVPipeline = pipeline(
     cursor,
     rowTransformer,
     csv,
-    uploadToStorageStream
-  )
+    uploadToStorageStream,
+  );
 
   const uploadToStorage = uploadFileToStorage({
-    contentType: 'text/csv',
-    folder: 'downloads',
+    contentType: "text/csv",
+    folder: "downloads",
     fileName: `${new Date().toISOString()}-links.csv`,
     contentStream: uploadToStorageStream,
-  })
+  });
 
-  const [{ url }] = await Promise.all([uploadToStorage, convertToCSVPipeline])
+  const [{ url }] = await Promise.all([uploadToStorage, convertToCSVPipeline]);
 
-  return makeRight({ reportUrl: url })
-}
+  return makeRight({ reportUrl: url });
+};

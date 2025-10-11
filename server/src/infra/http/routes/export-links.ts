@@ -1,15 +1,15 @@
-import { exportLinksFn } from '@/app/functions/export-links'
-import { unwrapEither } from '@/shared/either'
-import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { z } from 'zod'
+import { exportLinksFn } from "@/app/functions/export-links";
+import { unwrapEither } from "@/shared/either";
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { z } from "zod";
 
-export const exportLinks: FastifyPluginAsyncZod = async server => {
+export const exportLinks: FastifyPluginAsyncZod = async (server) => {
   server.post(
-    '/links/report',
+    "/links/report",
     {
       schema: {
-        summary: 'Export links report',
-        tags: ['links'],
+        summary: "Export links report",
+        tags: ["links"],
         response: {
           200: z.object({ reportUrl: z.string() }),
         },
@@ -17,12 +17,12 @@ export const exportLinks: FastifyPluginAsyncZod = async server => {
     },
     async (request, reply) => {
       const result = await exportLinksFn(
-        request.headers.origin ?? 'http://brev.ly'
-      )
+        request.headers.origin ?? "http://brev.ly",
+      );
 
-      const { reportUrl } = unwrapEither(result)
+      const { reportUrl } = unwrapEither(result);
 
-      return reply.status(200).send({ reportUrl })
-    }
-  )
-}
+      return reply.status(200).send({ reportUrl });
+    },
+  );
+};

@@ -1,9 +1,13 @@
+export type ResponseError = {
+  error?: Error;
+};
+
 export type Link = {
   id: string;
-  originalUrl: string;
-  shortUrl: string;
+  url: string;
+  shortLink: string;
   createdAt: string;
-  accessCount: number;
+  countVisits: number;
 };
 
 export type LinkList = Array<Link>;
@@ -12,3 +16,7 @@ export type NewLink = {
   originalUrl: string;
   shortUrl: string;
 };
+
+export type LinkReport = {
+  reportUrl: string
+}

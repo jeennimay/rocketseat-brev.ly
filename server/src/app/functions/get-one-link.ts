@@ -1,11 +1,11 @@
-import { eq } from 'drizzle-orm'
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
-import { makeLeft, makeRight, type Either } from '@/shared/either'
-import type { LinkResponse } from '@/shared/links.model'
+import { eq } from "drizzle-orm";
+import { db } from "@/infra/db";
+import { schema } from "@/infra/db/schemas";
+import { makeLeft, makeRight, type Either } from "@/shared/either";
+import type { LinkResponse } from "@/shared/links.model";
 
 export const getOneLink = async (
-  shortLink: string
+  shortLink: string,
 ): Promise<Either<string, LinkResponse>> => {
   const linkResult = await db
     .select({
@@ -16,14 +16,14 @@ export const getOneLink = async (
       createdAt: schema.links.createdAt,
     })
     .from(schema.links)
-    .where(eq(schema.links.shortLink, shortLink))
+    .where(eq(schema.links.shortLink, shortLink));
 
-  console.log(linkResult)
+  console.log(linkResult);
 
-  const [link] = linkResult
+  const [link] = linkResult;
 
   if (!link) {
-    return makeLeft('Link not found')
+    return makeLeft("Link not found");
   }
 
   return makeRight({
@@ -32,5 +32,5 @@ export const getOneLink = async (
     shortLink: link.shortLink,
     countVisits: link.countVisits,
     createdAt: link.createdAt,
-  })
-}
+  });
+};

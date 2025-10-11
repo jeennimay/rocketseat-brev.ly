@@ -1,4 +1,4 @@
-import { AssetsImg } from '@/ds';
+import { AssetsImg } from '@ds/index';
 
 const Loading = () => {
   return (

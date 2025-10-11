@@ -1,6 +1,6 @@
-import Warning from '@/ds/quarks/icons/warning';
-import { concatClassNames } from '@/utils/concat-classname';
 import { type FC } from 'react';
+import { WarningIcon } from '@ds/index';
+import { concatClassNames } from '@/utils/concat-classname';
 
 export type InputProps = {
   label?: string;
@@ -25,7 +25,7 @@ const Input: FC<InputProps> = ({
     <div className={concatClassNames('flex flex-col-reverse gap-2', className)}>
       {errorMessage && (
         <span className="text-sm leading-sm text-gray-500 flex items-center gap-2">
-          <Warning size={16} color="danger" />
+          <WarningIcon size={16} color="danger" />
           {errorMessage}
         </span>
       )}

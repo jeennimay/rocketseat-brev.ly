@@ -5,12 +5,14 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "erasableSyntaxOnly": false,
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@ds/*": ["./src/ds/*"],
+      "@ds/*": ["./src/presentation/ds/*"],
       "@utils/*": ["./src/utils/*"],
-      "@pages/*": ["./src/presentation/pages/*"]
+      "@pages/*": ["./src/presentation/pages/*"],
+      "@factories/*": ["./src/core/factories/*"]
     }
   }
 }

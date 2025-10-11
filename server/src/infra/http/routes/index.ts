@@ -6,10 +6,10 @@ import { getLink } from "./get-one-link";
 import { increaseLinkAccesss } from "./increase-link-access";
 
 export const routes = {
-    createShortLink,
-    deleteLink,
-    exportLinks,
-    getLink,
-    getLinks,
-    increaseLinkAccesss,
-}
+  createShortLink,
+  deleteLink,
+  exportLinks,
+  getLink,
+  getLinks,
+  increaseLinkAccesss,
+};

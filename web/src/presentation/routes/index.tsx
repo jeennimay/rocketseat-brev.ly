@@ -1,13 +1,13 @@
-import { Loading } from '@/ds';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { Route, Routes } from 'react-router';
+import { Loading } from '@ds/index';
 
-const Home = lazy(() => import('@/presentation/pages/home'));
-const NotFound = lazy(() => import('@/presentation/pages/not-found'));
-const Redirect = lazy(() => import('@/presentation/pages/redirect'));
+const Home = lazy(() => import('@factories/home'));
+const NotFound = lazy(() => import('@factories/not-found'));
+const Redirect = lazy(() => import('@factories/redirect'));
 
 export function BrevlyRoutes() {
-  return (
+  return useMemo(() => (
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -15,5 +15,5 @@ export function BrevlyRoutes() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
-  );
+  ), []);
 }

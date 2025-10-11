@@ -1,13 +1,13 @@
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
-import { fakerPT_BR as faker } from '@faker-js/faker'
-import type { InferInsertModel } from 'drizzle-orm'
+import { db } from "@/infra/db";
+import { schema } from "@/infra/db/schemas";
+import { fakerPT_BR as faker } from "@faker-js/faker";
+import type { InferInsertModel } from "drizzle-orm";
 
 export async function makeLink(
-  overrides?: Partial<InferInsertModel<typeof schema.links>>
+  overrides?: Partial<InferInsertModel<typeof schema.links>>,
 ) {
-  const url = faker.internet.url()
-  const shortLink = faker.internet.domainWord()
+  const url = faker.internet.url();
+  const shortLink = faker.internet.domainWord();
 
   const result = await db
     .insert(schema.links)
@@ -17,7 +17,7 @@ export async function makeLink(
       countVisits: 0,
       ...overrides,
     })
-    .returning()
+    .returning();
 
-  return result[0]
+  return result[0];
 }

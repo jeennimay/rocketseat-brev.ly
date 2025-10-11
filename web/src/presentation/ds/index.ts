@@ -1,6 +1,6 @@
 /* Quarks */
-export * from './quarks/icons';
 export { default as AssetsImg } from './quarks/img';
+export * from './quarks/icons';
 
 /* Atoms - type */
 export type { ButtonProps } from './atoms/button';

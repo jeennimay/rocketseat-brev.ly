@@ -1,12 +1,12 @@
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
-import { makeRight, type Either } from '@/shared/either'
-import { LinksResponse } from '@/shared/links.model'
+import { db } from "@/infra/db";
+import { schema } from "@/infra/db/schemas";
+import { makeRight, type Either } from "@/shared/either";
+import { LinksResponse } from "@/shared/links.model";
 
 type GetLinksOutput = {
-  links: LinksResponse
-  total: number
-}
+  links: LinksResponse;
+  total: number;
+};
 
 export const getLinksFn = async (): Promise<Either<never, GetLinksOutput>> => {
   const links: LinksResponse = await db
@@ -17,9 +17,9 @@ export const getLinksFn = async (): Promise<Either<never, GetLinksOutput>> => {
       countVisits: schema.links.countVisits,
       createdAt: schema.links.createdAt,
     })
-    .from(schema.links)
+    .from(schema.links);
 
-  const total = links.length
+  const total = links.length;
 
-  return makeRight({ links, total })
-}
+  return makeRight({ links, total });
+};

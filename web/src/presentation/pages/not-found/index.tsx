@@ -1,6 +1,6 @@
-import { AssetsImg } from '@/ds';
 import type { FC } from 'react';
 import { NavLink } from 'react-router';
+import { AssetsImg } from '@ds/index';
 
 const NotFound: FC = () => {
   return (

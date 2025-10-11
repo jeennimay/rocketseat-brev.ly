@@ -18,15 +18,16 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    // "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
     "paths": {
       "@/*": ["./src/*"],
-      "@ds/*": ["./src/ds/*"],
+      "@ds/*": ["./src/presentation/ds/*"],
       "@utils/*": ["./src/utils/*"],
-      "@pages/*": ["./src/presentation/pages/*"]
+      "@pages/*": ["./src/presentation/pages/*"],
+      "@factories/*": ["./src/core/factories/*"]
     }
   },
   "include": ["vite.config.ts"]
