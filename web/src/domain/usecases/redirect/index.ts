@@ -32,6 +32,10 @@ export default function RedirectUseCase(
     });
   }
 
+  async function accessCount(shortLink: Link['shortLink']) {
+    await source.accessLink(shortLink);
+  }
+
   useEffect(() => {
     if (!link.originalUrl && !links?.length && urlRedirect) {
       getLink(urlRedirect);
@@ -40,11 +44,12 @@ export default function RedirectUseCase(
 
     const isValid = /^[a-zA-Z0-9_]+$/.test(urlRedirect || '');
     const existLink = links.find(link => link.shortLink === urlRedirect);
-    if (!isValid || (!existLink && !link.originalUrl)) {
+    if (!isValid || !urlRedirect || (!existLink && !link.originalUrl)) {
       navigate('/url/not-found', { replace: true });
       return;
     }
     setIsLoading(false);
+    accessCount(urlRedirect);
 
     const timer = setTimeout(() => {
       window.location.href = existLink?.url || link.originalUrl;

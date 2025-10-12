@@ -9,7 +9,6 @@ export const createShortLinkFn = async (
   input: LinksRequestInput,
 ): Promise<Either<string, LinkResponse>> => {
   const parsed = LinksRequestObj.safeParse(input);
-  console.log(parsed);
   if (!parsed.success) {
     return makeLeft(parsed.error.message);
   }

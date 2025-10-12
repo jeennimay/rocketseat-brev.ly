@@ -35,29 +35,7 @@ export default class HttpClient implements HttpClient {
   async onResponseError(
     error: AxiosError
   ): Promise<AxiosError | AxiosResponse> {
-    if (!error || !error.isAxiosError) {
-      return Promise.reject(error);
-    }
-
-    const { config } = error;
-
-    if (!config) {
-      return Promise.reject(error);
-    }
-
-    // eslint-disable-next-line no-async-promise-executor
-    return await new Promise(async resolve => {
-      const parameters = {
-        method: config.method,
-        url: config.url || '',
-        data: config.data || {},
-        headers: config.headers,
-        responseType: config.responseType,
-      };
-
-      const response = await this.axiosInstance.request(parameters);
-      return resolve(response);
-    });
+    return Promise.reject(error);
   }
 
   constructor() {
@@ -76,7 +54,9 @@ export default class HttpClient implements HttpClient {
 
     try {
       axiosResponse = await this.axiosInstance.request({
-        ...parameters,
+        method: parameters.method,
+        url: parameters.url,
+        data: parameters.body || {},
         headers: Object.assign(parameters.headers || {}),
       });
       /* eslint-disable-next-line */

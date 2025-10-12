@@ -38,7 +38,7 @@ const ToastComponent = ({
   return (
     <div
       className={concatClassNames(
-        'rounded-lg text-gray-600 text-sm leading-sm max-w-[30vw] w-full overflow-hidden shadow-lg',
+        'rounded-lg text-gray-600 text-sm leading-sm max-w-3xs w-full overflow-hidden shadow-lg',
         variant === 'success' ? 'bg-green-100' : 'bg-red-100',
         'transform transition-transform duration-200 ease-in-out',
         progress > 1 ? '-translate-x-0' : 'translate-x-full'
@@ -55,7 +55,7 @@ const ToastComponent = ({
           variant === 'success' ? 'bg-green-500' : 'bg-red-500'
         )}
       />
-      <div className="p-2 box-border">
+      <div className="px-4 py-2 box-border">
         <p className="font-bold">{title}</p>
         {!!description && <p className="text-gray-500 mt-2">{description}</p>}
       </div>

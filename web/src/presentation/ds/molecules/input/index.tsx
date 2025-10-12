@@ -5,12 +5,14 @@ import { concatClassNames } from '@/utils/concat-classname';
 export type InputProps = {
   label?: string;
   errorMessage?: string;
+  containerClassName?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input: FC<InputProps> = ({
   name,
   label,
   className,
+  containerClassName,
   errorMessage,
   ...props
 }) => {
@@ -22,7 +24,12 @@ const Input: FC<InputProps> = ({
   };
 
   return (
-    <div className={concatClassNames('flex flex-col-reverse gap-2', className)}>
+    <div
+      className={concatClassNames(
+        'flex flex-col-reverse gap-2',
+        containerClassName
+      )}
+    >
       {errorMessage && (
         <span className="text-sm leading-sm text-gray-500 flex items-center gap-2">
           <WarningIcon size={16} color="danger" />
@@ -30,9 +37,12 @@ const Input: FC<InputProps> = ({
         </span>
       )}
       <input
-        className={`peer block min-w-0 w-full h-12 px-4 border rounded-lg text-md leading-md text-gray-600 placeholder-gray-400  outline-none transition-colors duration-300 ${
-          errorMessage ? style.inputError : style.inputFocus
-        }`}
+        className={concatClassNames(
+          `peer block min-w-0 w-full h-12 px-4 border rounded-lg text-md leading-md text-gray-600 placeholder-gray-400  outline-none transition-colors duration-300 ${
+            errorMessage ? style.inputError : style.inputFocus
+          }`,
+          className
+        )}
         name={name}
         id={name}
         {...props}

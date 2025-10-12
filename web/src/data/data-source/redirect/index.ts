@@ -27,7 +27,7 @@ export default class RedirectDataSource {
   public accessLink = (
     parameter: NewLink['shortUrl']
   ): Promise<Link | ResponseError> => {
-    const url = `${enviroment.beUrl}/link/${parameter}`;
+    const url = `${enviroment.beUrl}/link/${parameter}/access`;
 
     return this.httpClient
       .put({ url, headers: { 'Content-Type': 'application/json' } })

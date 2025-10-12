@@ -32,7 +32,7 @@ export default class HomeDataSource {
     const url = `${enviroment.beUrl}/links/report`;
 
     return this.httpClient
-      .get({ url, headers: { 'Content-Type': 'application/json' } })
+      .post({ url, headers: { 'Content-Type': 'application/json' } })
       .then((response): LinkReport | ResponseError => {
         const { body } = response;
 
@@ -63,7 +63,7 @@ export default class HomeDataSource {
           return body;
         }
 
-        return body.error;
+        return body;
       });
   };
 

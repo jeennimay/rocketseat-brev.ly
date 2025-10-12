@@ -7,7 +7,16 @@ type HomeProps = {
   useCase: HomeUseCaseProps;
 };
 const Home = (props: HomeProps): ReactNode => {
-  const { links, copyLink, deleteLink } = props.useCase;
+  const {
+    links,
+    newLinkValue,
+    isLoading,
+    setNewLinkValue,
+    copyLink,
+    deleteLink,
+    createLink,
+    downloadLinksReport,
+  } = props.useCase;
 
   return (
     <div className="bg-gray-200 min-h-dvh w-dvw px-3 py-8 box-border">
@@ -23,19 +32,50 @@ const Home = (props: HomeProps): ReactNode => {
           <h1 className="text-lg leading-lg font-bold m-0 p-0 box-border">
             Novo link
           </h1>
-          <form action="" className="flex flex-col gap-4 md:my-6 my-5">
+          <form
+            action={createLink}
+            id="form"
+            className="flex flex-col gap-4 md:my-6 my-5"
+          >
             <Input
-              placeholder="www.exemplo.com.br"
+              placeholder="https://www.exemplo.com.br"
               label="link original"
               name="new-link"
+              value={newLinkValue.originalUrl}
+              onChange={e =>
+                setNewLinkValue({
+                  ...newLinkValue,
+                  originalUrl: e.currentTarget.value,
+                })
+              }
             />
-            <Input
-              placeholder="brev.ly/"
-              label="link encurtado"
-              name="short-link"
-            />
+            <div className="relative w-full">
+              <Input
+                className="pl-16"
+                label="link encurtado"
+                name="short-link"
+                value={newLinkValue.shortUrl}
+                onChange={e =>
+                  setNewLinkValue({
+                    ...newLinkValue,
+                    shortUrl: e.currentTarget.value,
+                  })
+                }
+              />
+              <span className="z-0 select-none pointer-events-none absolute bottom-[15px] left-4 text-md leading-md text-gray-400">
+                brev.ly/
+              </span>
+            </div>
           </form>
-          <Button variant="primary" block>
+          <Button
+            type="submit"
+            form="form"
+            variant="primary"
+            block
+            disabled={
+              !newLinkValue.originalUrl || !newLinkValue.shortUrl || isLoading
+            }
+          >
             Salvar link
           </Button>
         </section>
@@ -47,6 +87,7 @@ const Home = (props: HomeProps): ReactNode => {
             <Button
               variant="secondary"
               className="flex gap-1.5 justify-center items-center"
+              onClick={downloadLinksReport}
             >
               <Download size={16} />
               <span className="font-semibold text-sm leading-sm">

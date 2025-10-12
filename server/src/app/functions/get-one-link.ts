@@ -18,8 +18,6 @@ export const getOneLink = async (
     .from(schema.links)
     .where(eq(schema.links.shortLink, shortLink));
 
-  console.log(linkResult);
-
   const [link] = linkResult;
 
   if (!link) {

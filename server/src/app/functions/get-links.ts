@@ -17,7 +17,8 @@ export const getLinksFn = async (): Promise<Either<never, GetLinksOutput>> => {
       countVisits: schema.links.countVisits,
       createdAt: schema.links.createdAt,
     })
-    .from(schema.links);
+    .from(schema.links)
+    .orderBy(schema.links.createdAt);
 
   const total = links.length;
 
